@@ -23,20 +23,65 @@
  */
 package soundlab;
 
+import java.awt.Graphics;
+import java.awt.Polygon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
 /**
  *
  * @author David-MSJ
  */
 public class Graph extends javax.swing.JPanel {
-    int frequency;
-    double wavelength;
-    double amplitude;
+    private int frequency;
+    private int wavelength;
+    private int amplitude;
+    private Timer timer;
 
     /**
      * Creates new form Graph
      */
     public Graph() {
         initComponents();
+        
+        frequency = 0;
+        wavelength = 0;
+        amplitude = 0;
+        
+        timer = new Timer(33, new TimerListener(this));
+        timer.start();
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        g.drawLine(20, 100, 290, 100);
+        
+        Polygon sinWave = new Polygon();
+        
+        for(int i = 0; i < 270; i++)    {
+            sinWave.addPoint(i + 20, ((int) (amplitude * Math.sin((i / (wavelength * 1.0)) * frequency
+                    * Math.PI))) + 100);
+        }
+        
+        g.drawPolyline(sinWave.xpoints, sinWave.ypoints, sinWave.npoints);
+    }
+    
+    private class TimerListener implements ActionListener {
+
+        private JPanel parent;
+
+        public TimerListener(JPanel parent) {
+            this.parent = parent;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            this.parent.repaint();
+        }
     }
 
     /**
@@ -48,38 +93,32 @@ public class Graph extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        graphDrawingPanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         frequencySlider = new javax.swing.JSlider();
         frequencyLabel = new javax.swing.JLabel();
         frequencyValueLabel = new javax.swing.JLabel();
         wavelengthLabel = new javax.swing.JLabel();
         wavelengthSlider = new javax.swing.JSlider();
-        wavelengthValueSlider = new javax.swing.JLabel();
-        wavelengthLabel1 = new javax.swing.JLabel();
-        wavelengthSlider1 = new javax.swing.JSlider();
-        wavelengthValueSlider1 = new javax.swing.JLabel();
+        wavelengthValueLabel = new javax.swing.JLabel();
+        amplitudeLabel = new javax.swing.JLabel();
+        amplitudeSlider = new javax.swing.JSlider();
+        amplitudeValueLabel = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(800, 200));
         setMinimumSize(new java.awt.Dimension(800, 200));
         setPreferredSize(new java.awt.Dimension(800, 200));
 
-        graphDrawingPanel.setBackground(new java.awt.Color(255, 255, 255));
-        graphDrawingPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout graphDrawingPanelLayout = new javax.swing.GroupLayout(graphDrawingPanel);
-        graphDrawingPanel.setLayout(graphDrawingPanelLayout);
-        graphDrawingPanelLayout.setHorizontalGroup(
-            graphDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
-        );
-        graphDrawingPanelLayout.setVerticalGroup(
-            graphDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         titleLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         titleLabel.setText("Wave Explorer");
+
+        frequencySlider.setMaximumSize(new java.awt.Dimension(250, 26));
+        frequencySlider.setMinimumSize(new java.awt.Dimension(250, 26));
+        frequencySlider.setPreferredSize(new java.awt.Dimension(250, 26));
+        frequencySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                frequencySliderStateChanged(evt);
+            }
+        });
 
         frequencyLabel.setText("Frequency (Hz)");
 
@@ -88,92 +127,115 @@ public class Graph extends javax.swing.JPanel {
 
         wavelengthLabel.setText("Wavelength (m)");
 
-        wavelengthValueSlider.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        wavelengthValueSlider.setText("0");
+        wavelengthSlider.setMaximumSize(new java.awt.Dimension(250, 26));
+        wavelengthSlider.setMinimumSize(new java.awt.Dimension(250, 26));
+        wavelengthSlider.setPreferredSize(new java.awt.Dimension(250, 26));
+        wavelengthSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                wavelengthSliderStateChanged(evt);
+            }
+        });
 
-        wavelengthLabel1.setText("Amplitude (m)");
+        wavelengthValueLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        wavelengthValueLabel.setText("0");
 
-        wavelengthValueSlider1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        wavelengthValueSlider1.setText("0");
+        amplitudeLabel.setText("Amplitude (m)");
+
+        amplitudeSlider.setMaximumSize(new java.awt.Dimension(250, 26));
+        amplitudeSlider.setMinimumSize(new java.awt.Dimension(250, 26));
+        amplitudeSlider.setPreferredSize(new java.awt.Dimension(250, 26));
+        amplitudeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                amplitudeSliderStateChanged(evt);
+            }
+        });
+
+        amplitudeValueLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        amplitudeValueLabel.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(graphDrawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(322, 322, 322)
+                .addComponent(frequencyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleLabel)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(frequencyLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(titleLabel)
-                                .addGap(137, 137, 137))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(frequencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(frequencyValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(wavelengthLabel))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wavelengthLabel1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(wavelengthSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                            .addComponent(wavelengthSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(wavelengthValueSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(wavelengthValueSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(9, 9, 9))
+                        .addComponent(frequencySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(frequencyValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(51, 51, 51))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(312, 312, 312)
+                        .addComponent(wavelengthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(321, 321, 321)
+                        .addComponent(amplitudeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(amplitudeSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(wavelengthSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(amplitudeValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wavelengthValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(graphDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(titleLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(frequencyValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(frequencyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(frequencySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(wavelengthValueSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(wavelengthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(wavelengthSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(wavelengthValueSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(wavelengthLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(wavelengthSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 12, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(titleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(frequencyValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(frequencyLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(frequencySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(wavelengthValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(wavelengthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(wavelengthSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(amplitudeValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(amplitudeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(amplitudeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
+        frequency = frequencySlider.getValue();
+        frequencyValueLabel.setText(Integer.toString(frequency));
+    }//GEN-LAST:event_frequencySliderStateChanged
+
+    private void wavelengthSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_wavelengthSliderStateChanged
+        wavelength = wavelengthSlider.getValue();
+        wavelengthValueLabel.setText(Integer.toString(wavelength));
+    }//GEN-LAST:event_wavelengthSliderStateChanged
+
+    private void amplitudeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_amplitudeSliderStateChanged
+        amplitude = amplitudeSlider.getValue();
+        amplitudeValueLabel.setText(Integer.toString(amplitude));
+    }//GEN-LAST:event_amplitudeSliderStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel amplitudeLabel;
+    private javax.swing.JSlider amplitudeSlider;
+    private javax.swing.JLabel amplitudeValueLabel;
     private javax.swing.JLabel frequencyLabel;
     private javax.swing.JSlider frequencySlider;
     private javax.swing.JLabel frequencyValueLabel;
-    private javax.swing.JPanel graphDrawingPanel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel wavelengthLabel;
-    private javax.swing.JLabel wavelengthLabel1;
     private javax.swing.JSlider wavelengthSlider;
-    private javax.swing.JSlider wavelengthSlider1;
-    private javax.swing.JLabel wavelengthValueSlider;
-    private javax.swing.JLabel wavelengthValueSlider1;
+    private javax.swing.JLabel wavelengthValueLabel;
     // End of variables declaration//GEN-END:variables
 }
