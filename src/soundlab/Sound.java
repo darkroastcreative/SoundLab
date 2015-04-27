@@ -23,7 +23,12 @@
  */
 package soundlab;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import javax.swing.JOptionPane;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -36,6 +41,7 @@ public class Sound extends javax.swing.JPanel {
     private int frequency;
     private int amplitude;
     private String filePath;
+    private File audioFile;
     private InputStream is;
     private AudioStream as;
     private AudioPlayer player;
@@ -45,7 +51,8 @@ public class Sound extends javax.swing.JPanel {
      */
     public Sound() {
         initComponents();
-        filePath = "";
+        frequency = 500;
+        filePath = "/soundlab/tones/" + Integer.toString(frequency) + ".wav";
     }
 
     /**
@@ -96,6 +103,7 @@ public class Sound extends javax.swing.JPanel {
         frequencySlider.setMaximum(2500);
         frequencySlider.setMinimum(500);
         frequencySlider.setMinorTickSpacing(250);
+        frequencySlider.setSnapToTicks(true);
         frequencySlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 frequencySliderStateChanged(evt);
@@ -152,7 +160,7 @@ public class Sound extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(stopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(titleLabel)
@@ -172,11 +180,21 @@ public class Sound extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        // TODO add your handling code here:
+        AudioPlayer.player.stop(as);
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
-        // TODO add your handling code here:
+        filePath = "/soundlab/tones/" + Integer.toString(frequency) + ".wav";
+        audioFile = new File(filePath);
+        try {
+            is = new FileInputStream(audioFile);
+            as = new AudioStream(is);
+            AudioPlayer.player.start(as);
+        }
+        catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null, "Error in playing file. Please try again.");
+            ioe.printStackTrace(System.err);
+        }
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
