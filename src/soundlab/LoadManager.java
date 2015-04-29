@@ -24,10 +24,25 @@
 
 package soundlab;
 
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author finkd
  */
 public class LoadManager {
+    private int graphFrequency;
+    private int graphWavelength;
+    private int graphAmplitude;
+    private int soundFrequency;
+    private int soundAmplitude;
+    private int quizQuestion1Selection;
+    private String quizQuestion2String;
+    private int quizQuestion3Selection;
+    JFileChooser fileChooser;
+    String filePath;
     
+    public LoadManager()    {
+        
+    }
 }
