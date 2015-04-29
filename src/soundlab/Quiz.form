@@ -194,6 +194,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="1Hz - 100kHz"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="question1Button1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="question1Button2">
       <Properties>
@@ -202,6 +205,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="20Hz - 20kHz"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="question1Button2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="question1Button3">
       <Properties>
@@ -210,6 +216,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="50Hz - 50kHz"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="question1Button3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="question1Button4">
       <Properties>
@@ -218,6 +227,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="25Hz - 25kHz"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="question1Button4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="question2_1">
       <Properties>
@@ -241,6 +253,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="question2TextField">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="question2TextFieldFocusLost"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="question2TextFieldKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="question3_3">
       <Properties>
@@ -264,6 +280,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="True"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="question3Button1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="question3Button2">
       <Properties>
@@ -272,6 +291,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="False"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="question3Button2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="submitButton">
       <Properties>

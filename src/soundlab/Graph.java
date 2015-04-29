@@ -84,6 +84,18 @@ public class Graph extends javax.swing.JPanel {
         }
     }
 
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public int getWavelength() {
+        return wavelength;
+    }
+
+    public int getAmplitude() {
+        return amplitude;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

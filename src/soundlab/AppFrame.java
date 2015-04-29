@@ -24,6 +24,7 @@
 
 package soundlab;
 
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -131,7 +132,7 @@ public class AppFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+            .addComponent(appPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, Short.MAX_VALUE)
         );
 
         pack();
@@ -156,7 +157,20 @@ public class AppFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        //Add call to load manager to parse all necessary information and save it to a selected directory
+        try {
+            SaveManager saveMan = new SaveManager(appPanel1.getGraph1().getFrequency(), 
+                appPanel1.getGraph1().getWavelength(), 
+                appPanel1.getGraph1().getAmplitude(), 
+                appPanel1.getSound1().getFrequency(), 
+                appPanel1.getSound1().getAmplitude(), 
+                appPanel1.getQuiz1().getQuestion1Selection(), 
+                appPanel1.getQuiz1().getQuestion2String(), 
+                appPanel1.getQuiz1().getQuestion3Selection());
+        }
+        catch(IOException ioe)  {
+            JOptionPane.showMessageDialog(null, "Error: Could not save. Please try again.");
+            ioe.printStackTrace(System.err);
+        }
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed

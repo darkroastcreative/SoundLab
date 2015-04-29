@@ -55,6 +55,15 @@ public class Sound extends javax.swing.JPanel {
         filePath = "/soundlab/tones/" + Integer.toString(frequency) + ".wav";
     }
 
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public int getAmplitude() {
+        return amplitude;
+    }
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

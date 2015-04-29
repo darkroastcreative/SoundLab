@@ -30,12 +30,27 @@ import java.awt.Color;
  * @author David-MSJ
  */
 public class Quiz extends javax.swing.JPanel {
-
+    private int question1Selection;
+    private String question2String;
+    private int question3Selection;
+    
     /**
      * Creates new form Quiz
      */
     public Quiz() {
         initComponents();
+    }
+
+    public int getQuestion1Selection() {
+        return question1Selection;
+    }
+
+    public String getQuestion2String() {
+        return question2String;
+    }
+
+    public int getQuestion3Selection() {
+        return question3Selection;
     }
 
     /**
@@ -85,15 +100,35 @@ public class Quiz extends javax.swing.JPanel {
 
         question1ButtonGroup.add(question1Button1);
         question1Button1.setText("1Hz - 100kHz");
+        question1Button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                question1Button1ActionPerformed(evt);
+            }
+        });
 
         question1ButtonGroup.add(question1Button2);
         question1Button2.setText("20Hz - 20kHz");
+        question1Button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                question1Button2ActionPerformed(evt);
+            }
+        });
 
         question1ButtonGroup.add(question1Button3);
         question1Button3.setText("50Hz - 50kHz");
+        question1Button3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                question1Button3ActionPerformed(evt);
+            }
+        });
 
         question1ButtonGroup.add(question1Button4);
         question1Button4.setText("25Hz - 25kHz");
+        question1Button4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                question1Button4ActionPerformed(evt);
+            }
+        });
 
         question2_1.setText("If you're listening to 98.1FM");
 
@@ -104,6 +139,17 @@ public class Quiz extends javax.swing.JPanel {
         question2_4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         question2_4.setText("Answer to the Nearest Hundreth.");
 
+        question2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                question2TextFieldFocusLost(evt);
+            }
+        });
+        question2TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                question2TextFieldKeyTyped(evt);
+            }
+        });
+
         question3_3.setText("louder it is.");
 
         question3_2.setText("amplitude of a sound wave, the");
@@ -112,9 +158,19 @@ public class Quiz extends javax.swing.JPanel {
 
         question3ButtonGroup.add(question3Button1);
         question3Button1.setText("True");
+        question3Button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                question3Button1ActionPerformed(evt);
+            }
+        });
 
         question3ButtonGroup.add(question3Button2);
         question3Button2.setText("False");
+        question3Button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                question3Button2ActionPerformed(evt);
+            }
+        });
 
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -284,6 +340,38 @@ public class Quiz extends javax.swing.JPanel {
             resultText.setText("Try again!");
         }
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void question1Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question1Button1ActionPerformed
+        question1Selection = 1;
+    }//GEN-LAST:event_question1Button1ActionPerformed
+
+    private void question1Button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question1Button2ActionPerformed
+        question1Selection = 2;
+    }//GEN-LAST:event_question1Button2ActionPerformed
+
+    private void question1Button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question1Button3ActionPerformed
+        question1Selection = 3;
+    }//GEN-LAST:event_question1Button3ActionPerformed
+
+    private void question1Button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question1Button4ActionPerformed
+        question1Selection = 4;
+    }//GEN-LAST:event_question1Button4ActionPerformed
+
+    private void question3Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question3Button1ActionPerformed
+        question3Selection = 1;
+    }//GEN-LAST:event_question3Button1ActionPerformed
+
+    private void question3Button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question3Button2ActionPerformed
+        question3Selection = 2;
+    }//GEN-LAST:event_question3Button2ActionPerformed
+
+    private void question2TextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_question2TextFieldKeyTyped
+        question2String = question2TextField.getText();
+    }//GEN-LAST:event_question2TextFieldKeyTyped
+
+    private void question2TextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_question2TextFieldFocusLost
+        question2String = question2TextField.getText();
+    }//GEN-LAST:event_question2TextFieldFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

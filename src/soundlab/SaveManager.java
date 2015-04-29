@@ -24,10 +24,64 @@
 
 package soundlab;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import org.json.simple.*;
+
 /**
  *
  * @author finkd
  */
 public class SaveManager {
+    private int graphFrequency;
+    private int graphWavelength;
+    private int graphAmplitude;
+    private int soundFrequency;
+    private int soundAmplitude;
+    private int quizQuestion1Selection;
+    private String quizQuestion2String;
+    private int quizQuestion3Selection;
+    JFileChooser fileChooser;
+    String filePath;
+    FileWriter fileWriter;
     
+    public SaveManager(int graphFrequncy, 
+            int graphWavelength, 
+            int graphAmplitude, 
+            int soundFrequency, 
+            int soundAmplitude, 
+            int quizQuestion1Selection, 
+            String quizQuestion2String, 
+            int quizQuestion3Selection) throws IOException    {
+        JSONObject jsonOut = new JSONObject();
+        
+        JSONArray graphVars = new JSONArray();
+        graphVars.add(graphFrequncy);
+        graphVars.add(graphWavelength);
+        graphVars.add(graphAmplitude);
+        
+        JSONArray soundVars = new JSONArray();
+        soundVars.add(soundFrequency);
+        soundVars.add(soundAmplitude);
+        
+        JSONArray quizVars = new JSONArray();
+        quizVars.add(quizQuestion1Selection);
+        quizVars.add(quizQuestion2String);
+        quizVars.add(quizQuestion3Selection);
+        
+        jsonOut.put("Graph Variables", graphVars);
+        jsonOut.put("Sound Variables", soundVars);
+        jsonOut.put("Quiz Variables", quizVars);
+        
+        fileChooser = new JFileChooser();
+        fileChooser.setSelectedFile(new File("soundlab.json"));
+        fileChooser.showSaveDialog(null);
+        filePath = fileChooser.getSelectedFile().getCanonicalPath();
+        fileWriter = new FileWriter(filePath);
+        fileWriter.write(jsonOut.toJSONString());
+        fileWriter.flush();
+        fileWriter.close();
+    }
 }

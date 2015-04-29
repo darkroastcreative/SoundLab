@@ -36,6 +36,20 @@ public class AppPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    public Graph getGraph1() {
+        return graph1;
+    }
+
+    public Quiz getQuiz1() {
+        return quiz1;
+    }
+
+    public Sound getSound1() {
+        return sound1;
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
