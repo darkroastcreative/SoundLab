@@ -21,13 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package soundlab;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.json.simple.*;
 
 /**
@@ -35,6 +37,7 @@ import org.json.simple.*;
  * @author finkd
  */
 public class SaveManager {
+
     private int graphFrequency;
     private int graphWavelength;
     private int graphAmplitude;
@@ -46,42 +49,64 @@ public class SaveManager {
     JFileChooser fileChooser;
     String filePath;
     FileWriter fileWriter;
-    
-    public SaveManager(int graphFrequncy, 
-            int graphWavelength, 
-            int graphAmplitude, 
-            int soundFrequency, 
-            int soundAmplitude, 
-            int quizQuestion1Selection, 
-            String quizQuestion2String, 
-            int quizQuestion3Selection) throws IOException    {
+
+    public SaveManager(int graphFrequncy,
+            int graphWavelength,
+            int graphAmplitude,
+            int soundFrequency,
+            int soundAmplitude,
+            int quizQuestion1Selection,
+            String quizQuestion2String,
+            int quizQuestion3Selection) {
+        this.graphFrequency = graphFrequncy;
+        this.graphWavelength = graphWavelength;
+        this.graphAmplitude = graphAmplitude;
+        this.soundFrequency = soundFrequency;
+        this.soundAmplitude = soundAmplitude;
+        this.quizQuestion1Selection = quizQuestion1Selection;
+        this.quizQuestion2String = quizQuestion2String;
+        this.quizQuestion3Selection = quizQuestion3Selection;
+    }
+
+    public void saveFile() {
         JSONObject jsonOut = new JSONObject();
-        
+
         JSONArray graphVars = new JSONArray();
-        graphVars.add(graphFrequncy);
+        graphVars.add(graphFrequency);
         graphVars.add(graphWavelength);
         graphVars.add(graphAmplitude);
-        
+
         JSONArray soundVars = new JSONArray();
         soundVars.add(soundFrequency);
         soundVars.add(soundAmplitude);
-        
+
         JSONArray quizVars = new JSONArray();
         quizVars.add(quizQuestion1Selection);
         quizVars.add(quizQuestion2String);
         quizVars.add(quizQuestion3Selection);
-        
+
         jsonOut.put("Graph Variables", graphVars);
         jsonOut.put("Sound Variables", soundVars);
         jsonOut.put("Quiz Variables", quizVars);
-        
+
         fileChooser = new JFileChooser();
         fileChooser.setSelectedFile(new File("soundlab.json"));
         fileChooser.showSaveDialog(null);
-        filePath = fileChooser.getSelectedFile().getCanonicalPath();
-        fileWriter = new FileWriter(filePath);
-        fileWriter.write(jsonOut.toJSONString());
-        fileWriter.flush();
-        fileWriter.close();
+        try {
+            filePath = fileChooser.getSelectedFile().getCanonicalPath();
+            fileWriter = new FileWriter(filePath);
+            fileWriter.write(jsonOut.toJSONString());
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null, "Error: Could not save. Please try again.");
+            ioe.printStackTrace(System.err);
+        } finally {
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException ioe) {
+                JOptionPane.showMessageDialog(null, "Error: Could not save. Please try again.");
+                ioe.printStackTrace(System.err);
+            }
+        }
     }
 }

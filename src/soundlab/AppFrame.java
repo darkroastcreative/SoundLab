@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package soundlab;
 
 import java.io.IOException;
@@ -144,33 +143,28 @@ public class AppFrame extends javax.swing.JFrame {
 
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
         int response = JOptionPane.showConfirmDialog(this, "Create a new instance of the lab? You will lose all unsaved progress.");
-        
-        if(response == 1)    {
+
+        if (response == 1) {
             //Add call to code to reset all sliders, fields, etc.
         }
     }//GEN-LAST:event_newMenuItemActionPerformed
 
     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
         //Show file open dialog and get a file to send to load manager
-        
+
         //Add call to load manager to read save file and act as necessary
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        try {
-            SaveManager saveMan = new SaveManager(appPanel1.getGraph1().getFrequency(), 
-                appPanel1.getGraph1().getWavelength(), 
-                appPanel1.getGraph1().getAmplitude(), 
-                appPanel1.getSound1().getFrequency(), 
-                appPanel1.getSound1().getAmplitude(), 
-                appPanel1.getQuiz1().getQuestion1Selection(), 
-                appPanel1.getQuiz1().getQuestion2String(), 
+        SaveManager saveMan = new SaveManager(appPanel1.getGraph1().getFrequency(),
+                appPanel1.getGraph1().getWavelength(),
+                appPanel1.getGraph1().getAmplitude(),
+                appPanel1.getSound1().getFrequency(),
+                appPanel1.getSound1().getAmplitude(),
+                appPanel1.getQuiz1().getQuestion1Selection(),
+                appPanel1.getQuiz1().getQuestion2String(),
                 appPanel1.getQuiz1().getQuestion3Selection());
-        }
-        catch(IOException ioe)  {
-            JOptionPane.showMessageDialog(null, "Error: Could not save. Please try again.");
-            ioe.printStackTrace(System.err);
-        }
+        saveMan.saveFile();
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void resetMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetMenuItemActionPerformed
