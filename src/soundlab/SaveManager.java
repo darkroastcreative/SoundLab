@@ -85,9 +85,9 @@ public class SaveManager {
         quizVars.add(quizQuestion2String);
         quizVars.add(quizQuestion3Selection);
 
-        jsonOut.put("Graph Variables", graphVars);
-        jsonOut.put("Sound Variables", soundVars);
-        jsonOut.put("Quiz Variables", quizVars);
+        jsonOut.put("GraphVariables", graphVars);
+        jsonOut.put("SoundVariables", soundVars);
+        jsonOut.put("QuizVariables", quizVars);
 
         fileChooser = new JFileChooser();
         fileChooser.setSelectedFile(new File("soundlab.json"));

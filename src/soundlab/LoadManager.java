@@ -21,16 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package soundlab;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import org.json.simple.*;
 
 /**
  *
  * @author finkd
  */
 public class LoadManager {
+
     private int graphFrequency;
     private int graphWavelength;
     private int graphAmplitude;
@@ -41,8 +47,45 @@ public class LoadManager {
     private int quizQuestion3Selection;
     JFileChooser fileChooser;
     String filePath;
-    
-    public LoadManager()    {
-        
+    String jsonInput;
+    Object jsonObj;
+    JSONArray allVars;
+    Object graphObject;
+    JSONArray graphArray;
+    Object soundObject;
+    JSONArray soundArray;
+    Object quizObject;
+    JSONArray quizArray;
+
+    public LoadManager() {
+        fileChooser = new JFileChooser();
+    }
+
+    public void readSaveFile() {
+        try {
+            fileChooser.showOpenDialog(null);
+            String filePath = fileChooser.getSelectedFile().getCanonicalPath();
+            byte[] encoded = Files.readAllBytes(Paths.get(filePath));
+            jsonInput = "[";
+            jsonInput += new String(encoded, StandardCharsets.UTF_8);
+            jsonInput += "]";
+            jsonObj = JSONValue.parse(jsonInput);
+            allVars = (JSONArray)jsonObj;
+            JSONObject varObj = (JSONObject)allVars.get(0);
+            
+            graphObject = varObj.get("GraphVariables");
+            graphArray = (JSONArray)graphObject;
+            soundObject = varObj.get("SoundVariables");
+            soundArray = (JSONArray)soundObject;
+            quizObject = varObj.get("QuizVariables");
+            quizArray = (JSONArray)quizObject;
+            
+            //need to finish implementation from here on!
+            graphFrequency = graphArray.get(0);
+            System.out.println(graphArray.get(0));
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null, "Error: Could not load file. Please try again.");
+            ioe.printStackTrace(System.err);
+        }
     }
 }

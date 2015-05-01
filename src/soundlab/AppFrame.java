@@ -150,9 +150,8 @@ public class AppFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newMenuItemActionPerformed
 
     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
-        //Show file open dialog and get a file to send to load manager
-
-        //Add call to load manager to read save file and act as necessary
+        LoadManager loadMan = new LoadManager();
+        loadMan.readSaveFile();
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
