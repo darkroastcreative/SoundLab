@@ -51,13 +51,13 @@ public class AppPanel extends javax.swing.JPanel {
     public void setGraph1(int frequency, int wavelength, int amplitude) {
         graph1 = new Graph(frequency, wavelength, amplitude);
     }
-
-    public void setQuiz1(Quiz quiz1) {
-        this.quiz1 = quiz1;
+    
+    public void setSound1(int frequency, int amplitude) {
+        sound1 = new Sound(frequency, amplitude);
     }
 
-    public void setSound1(Sound sound1) {
-        this.sound1 = sound1;
+    public void setQuiz1(int question1Selection, String question2String, int question3Selection) {
+        quiz1 = new Quiz(question1Selection, question2String, question3Selection);
     }
     
     /**
@@ -73,9 +73,9 @@ public class AppPanel extends javax.swing.JPanel {
         sound1 = new soundlab.Sound();
         quiz1 = new soundlab.Quiz();
 
-        setMaximumSize(new java.awt.Dimension(800, 625));
-        setMinimumSize(new java.awt.Dimension(800, 625));
-        setPreferredSize(new java.awt.Dimension(800, 625));
+        setMaximumSize(new java.awt.Dimension(800, 635));
+        setMinimumSize(new java.awt.Dimension(800, 635));
+        setPreferredSize(new java.awt.Dimension(800, 635));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,7 +96,7 @@ public class AppPanel extends javax.swing.JPanel {
                 .addComponent(sound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(quiz1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

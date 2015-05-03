@@ -40,6 +40,14 @@ public class Quiz extends javax.swing.JPanel {
     public Quiz() {
         initComponents();
     }
+    
+    public Quiz(int question1Selection, String question2String, int question3Selection) {
+        initComponents();
+        
+        this.question1Selection = question1Selection;
+        this.question2String = question2String;
+        this.question3Selection = question3Selection;
+    }
 
     public int getQuestion1Selection() {
         return question1Selection;

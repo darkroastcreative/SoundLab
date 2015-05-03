@@ -62,14 +62,6 @@ public class Graph extends javax.swing.JPanel {
         this.wavelength = wavelength;
         this.amplitude = amplitude;
         
-        frequencySlider = new JSlider(0, 100, this.frequency);
-        wavelengthSlider = new JSlider(0, 100, this.wavelength);
-        amplitudeSlider = new JSlider(0, 100, this.amplitude);
-        
-        frequencyValueLabel.setText(Integer.toString(this.frequency));
-        wavelengthValueLabel.setText(Integer.toString(this.wavelength));
-        amplitudeValueLabel.setText(Integer.toString(this.amplitude));
-        
         timer = new Timer(33, new TimerListener(this));
         timer.start();
     }
@@ -88,20 +80,6 @@ public class Graph extends javax.swing.JPanel {
         }
         
         g.drawPolyline(sinWave.xpoints, sinWave.ypoints, sinWave.npoints);
-    }
-    
-    private class TimerListener implements ActionListener {
-
-        private JPanel parent;
-
-        public TimerListener(JPanel parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            this.parent.repaint();
-        }
     }
 
     public int getFrequency() {

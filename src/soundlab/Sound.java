@@ -50,8 +50,17 @@ public class Sound extends javax.swing.JPanel {
     public Sound() {
         initComponents();
         frequency = 500;
-        amplitude = 5;
+        amplitude = 50;
+        
         filePath = "/soundlab/tones/" + Integer.toString(frequency) + ".wav";
+    }
+    
+    public Sound(int frequency, int amplitude) {
+        initComponents();
+        this.frequency = frequency;
+        this.amplitude = amplitude;
+        
+        filePath = "/soundlab/tones/" + Integer.toString(this.frequency) + ".wav";
     }
 
     public int getFrequency() {

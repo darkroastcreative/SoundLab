@@ -25,6 +25,7 @@ package soundlab;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -131,7 +132,7 @@ public class AppFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(appPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, Short.MAX_VALUE)
+            .addComponent(appPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -145,7 +146,10 @@ public class AppFrame extends javax.swing.JFrame {
         int response = JOptionPane.showConfirmDialog(this, "Create a new instance of the lab? You will lose all unsaved progress.");
 
         if (response == 1) {
-            //Add call to code to reset all sliders, fields, etc.
+            this.remove(appPanel1);
+            AppPanel appPanel = new AppPanel();
+            appPanel.setVisible(true);
+            this.add(appPanel);
         }
     }//GEN-LAST:event_newMenuItemActionPerformed
 
@@ -154,6 +158,20 @@ public class AppFrame extends javax.swing.JFrame {
         ArrayList<Object> loadVars = loadMan.readSaveFile();
         
         appPanel1.setGraph1((int)loadVars.get(0), (int)loadVars.get(1), (int)loadVars.get(2));
+        appPanel1.setSound1((int)loadVars.get(3), (int)loadVars.get(4));
+        appPanel1.setQuiz1((int)loadVars.get(5), (String)loadVars.get(6), (int)loadVars.get(7));
+        
+        JOptionPane.showMessageDialog(this, "Graph:" + 
+                "\n\tFrequency: " + (int)loadVars.get(0) + 
+                "\n\tWavelength: " + (int)loadVars.get(1) +
+                "\n\tAmplitude: " + (int)loadVars.get(2) + 
+                "\n\nWave Explorer:" + 
+                "\n\tWavelength: " + (int)loadVars.get(3) + 
+                "\n\tAmplitude: " + (int)loadVars.get(4) + 
+                "\n\nQuiz:" + 
+                "\n\tQuestion 1: " + (int)loadVars.get(5) + 
+                "\n\tQuestion 2: " + (String)loadVars.get(6) + 
+                "\n\tQuestion 3: " + (int)loadVars.get(7));
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
