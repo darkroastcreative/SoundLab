@@ -28,6 +28,7 @@ import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.Timer;
 
 /**
@@ -49,6 +50,25 @@ public class Graph extends javax.swing.JPanel {
         frequency = 0;
         wavelength = 0;
         amplitude = 0;
+        
+        timer = new Timer(33, new TimerListener(this));
+        timer.start();
+    }
+    
+    public Graph(int frequency, int wavelength, int amplitude) {
+        initComponents();
+        
+        this.frequency = frequency;
+        this.wavelength = wavelength;
+        this.amplitude = amplitude;
+        
+        frequencySlider = new JSlider(0, 100, this.frequency);
+        wavelengthSlider = new JSlider(0, 100, this.wavelength);
+        amplitudeSlider = new JSlider(0, 100, this.amplitude);
+        
+        frequencyValueLabel.setText(Integer.toString(this.frequency));
+        wavelengthValueLabel.setText(Integer.toString(this.wavelength));
+        amplitudeValueLabel.setText(Integer.toString(this.amplitude));
         
         timer = new Timer(33, new TimerListener(this));
         timer.start();

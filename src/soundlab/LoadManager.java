@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.json.simple.*;
@@ -36,7 +37,7 @@ import org.json.simple.*;
  * @author finkd
  */
 public class LoadManager {
-
+    private ArrayList<Object> returnVars;
     private int graphFrequency;
     private int graphWavelength;
     private int graphAmplitude;
@@ -59,9 +60,10 @@ public class LoadManager {
 
     public LoadManager() {
         fileChooser = new JFileChooser();
+        returnVars = new ArrayList<Object>();
     }
 
-    public void readSaveFile() {
+    public ArrayList<Object> readSaveFile() {
         try {
             fileChooser.showOpenDialog(null);
             String filePath = fileChooser.getSelectedFile().getCanonicalPath();
@@ -80,12 +82,27 @@ public class LoadManager {
             quizObject = varObj.get("QuizVariables");
             quizArray = (JSONArray)quizObject;
             
-            //need to finish implementation from here on!
-            graphFrequency = graphArray.get(0);
-            System.out.println(graphArray.get(0));
+            graphFrequency = Integer.parseInt(graphArray.get(0).toString());
+            graphWavelength = Integer.parseInt(graphArray.get(1).toString());
+            graphAmplitude = Integer.parseInt(graphArray.get(2).toString());
+            soundFrequency = Integer.parseInt(soundArray.get(0).toString());
+            soundAmplitude = Integer.parseInt(soundArray.get(1).toString());
+            quizQuestion1Selection = Integer.parseInt(quizArray.get(0).toString());
+            quizQuestion2String = quizArray.get(1).toString();
+            quizQuestion3Selection = Integer.parseInt(quizArray.get(2).toString());
+            
+            returnVars.add(graphFrequency);
+            returnVars.add(graphWavelength);
+            returnVars.add(graphAmplitude);
+            returnVars.add(soundFrequency);
+            returnVars.add(soundAmplitude);
+            returnVars.add(quizQuestion1Selection);
+            returnVars.add(quizQuestion2String);
+            returnVars.add(quizQuestion3Selection);
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(null, "Error: Could not load file. Please try again.");
             ioe.printStackTrace(System.err);
         }
+        return returnVars;
     }
 }

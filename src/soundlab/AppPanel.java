@@ -47,9 +47,19 @@ public class AppPanel extends javax.swing.JPanel {
     public Sound getSound1() {
         return sound1;
     }
-    
-    
 
+    public void setGraph1(int frequency, int wavelength, int amplitude) {
+        graph1 = new Graph(frequency, wavelength, amplitude);
+    }
+
+    public void setQuiz1(Quiz quiz1) {
+        this.quiz1 = quiz1;
+    }
+
+    public void setSound1(Sound sound1) {
+        this.sound1 = sound1;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -23,7 +23,7 @@
  */
 package soundlab;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -151,7 +151,9 @@ public class AppFrame extends javax.swing.JFrame {
 
     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
         LoadManager loadMan = new LoadManager();
-        loadMan.readSaveFile();
+        ArrayList<Object> loadVars = loadMan.readSaveFile();
+        
+        appPanel1.setGraph1((int)loadVars.get(0), (int)loadVars.get(1), (int)loadVars.get(2));
     }//GEN-LAST:event_loadMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
