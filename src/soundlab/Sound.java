@@ -29,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.JOptionPane;
+import kuusisto.tinysound.*;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -41,10 +42,7 @@ public class Sound extends javax.swing.JPanel {
     private int frequency;
     private int amplitude;
     private String filePath;
-    private File audioFile;
-    private InputStream is;
-    private AudioStream as;
-    private AudioPlayer player;
+    private Music player;
 
     /**
      * Creates new form Sound
@@ -52,6 +50,7 @@ public class Sound extends javax.swing.JPanel {
     public Sound() {
         initComponents();
         frequency = 500;
+        amplitude = 5;
         filePath = "/soundlab/tones/" + Integer.toString(frequency) + ".wav";
     }
 
@@ -189,21 +188,15 @@ public class Sound extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        AudioPlayer.player.stop(as);
+        player.stop();
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         filePath = "/soundlab/tones/" + Integer.toString(frequency) + ".wav";
-        audioFile = new File(filePath);
-        try {
-            is = new FileInputStream(audioFile);
-            as = new AudioStream(is);
-            AudioPlayer.player.start(as);
-        }
-        catch (IOException ioe) {
-            JOptionPane.showMessageDialog(null, "Error in playing file. Please try again.");
-            ioe.printStackTrace(System.err);
-        }
+        TinySound.init();
+        player = TinySound.loadMusic(filePath);
+        player.setVolume(amplitude * 1.0);
+        player.play(true);
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void frequencySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_frequencySliderStateChanged
